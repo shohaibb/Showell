@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShowWell</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='browse.css') }}">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li>
+                <a href="{{ url_for('home') }}" class="nav-home">
+                    <img src="{{ url_for('static', filename='home.ico') }}" alt="Home" class="nav-icon">
+                    <span class="nav-text">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('browse') }}" class="nav-browse">
+                    <img src="{{ url_for('static', filename='controller.ico') }}" alt="Browse" class="nav-icon">
+                    <span class="nav-text">Browse</span>
+                </a>
+            </li>
+            <li>
+                <a href="#contact" class="nav-contact">
+                    <img src="{{ url_for('static', filename='phone.ico') }}" alt="Contact Us" class="nav-icon">
+                    <span class="nav-text">Contact Us</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</head>
+<body>
+
+</body>
+</html>

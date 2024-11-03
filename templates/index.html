@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShowWell</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='homepage.css') }}">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li>
+                <a href="{{ url_for('home') }}" class="nav-home">
+                    <img src="{{ url_for('static', filename='home.ico') }}" alt="Home" class="nav-icon">
+                    <span class="nav-text">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('browse') }}" class="nav-browse">
+                    <img src="{{ url_for('static', filename='controller.ico') }}" alt="Browse" class="nav-icon">
+                    <span class="nav-text">Browse</span>
+                </a>
+            </li>
+            <li>
+                <a href="#contact" class="nav-contact">
+                    <img src="{{ url_for('static', filename='phone.ico') }}" alt="Contact Us" class="nav-icon">
+                    <span class="nav-text">Contact Us</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</head>
+<body>
+    <div class="container">
+        <svg width="800" height="200">
+            <text x="50%" y="100" text-anchor="middle" class="handwritten">ShoWell</text>
+        </svg>
+        <!-- quote below showell -->
+        <div class="quote">Endless video games, infinite possibilities. Unveil your next great adventure with just a few clicks</div>
+    </div>
+
+    <!-- Featured games section -->
+    <div class="featured-games">
+        <h2>Featured Games</h2>
+        <div class="game-grid">
+            <div class="game-card"></div>
+            <div class="game-card"></div>
+            <div class="game-card"></div>
+        </div>
+    </div>
+
+    <script>
+        const textElement = document.querySelector('.handwritten');
+
+        // Function to play the reverse animation
+        function reverseAnimation() {
+            textElement.style.animation = 'erase 5s forwards'; // Trigger the reverse animation
+        }
+
+        // Function to replay the forward animation (reveal)
+        function restartAnimation() {
+            textElement.style.animation = 'write 5s forwards'; // Trigger the forward animation
+        }
+
+        // Automatically handle the loop between forward and reverse animations
+        textElement.addEventListener('animationend', (e) => {
+            if (e.animationName === 'write') {
+                setTimeout(reverseAnimation, 2000); // Wait 2 seconds after writing before reversing
+            } else if (e.animationName === 'erase') {
+                setTimeout(restartAnimation, 2000); // Wait 2 seconds after erasing before writing again
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+/*import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Rum+Raisin&family=Solitreo&display=swap');
+
+/* Showell/page dimensions stuff */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+    height: 100vh;
+    background: linear-gradient(to bottom, #2D3A57, #303030); /* background */
+    margin: 0;
+}
+
+svg {
+    font-family: 'Pacifico', cursive;
+    font-size: 71px;
+    display: block;
+    margin-top: -120px; /*reduce margin above showell */
+}
+
+.handwritten {
+    fill: none;
+    stroke: white;
+    stroke-width: 2;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: write 5s forwards;
+}
+
+
+/* quote styles */
+.quote {
+    font-family: 'Solitreo', cursive;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    margin-top: -40px; /*space between showell and quote */
+    max-width: 800px; /*limiy the width to match showell */
+    line-height: 1.5; 
+}
+
+
+
+.container {
+    margin-top: -150px; /*move up from the center */
+    text-align: center;
+}
+
+
+/* Featured Games stuff */
+.featured-games {
+    position: absolute;
+    bottom: 40px; /*fixed at the bottom with a small margin */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.featured-games h2 {
+    font-family: 'Rum Raisin', sans-serif;
+    font-size: 24px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.game-grid {
+    display: flex;
+    justify-content: center;
+    gap: 80px; /*space between cards */
+}
+
+.game-card {
+    width: 230px;
+    height: 230px;
+    background-color: #ffffff21;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.game-card:hover {
+    transform: scale(1.05); /*slight zoom on hover */
+}
+
+
+/* navbar stuff */
+.navbar {
+    width: 100%;
+    max-width: 1200px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 80px;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: white;
+    display: flex;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.13);
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: 0.8s ease;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    animation: float 4s ease-in-out infinite; 
+    text-decoration: none; 
+}
+
+.nav-icon {
+    width: 32px;
+    height: 32px;
+    margin-left: 13px;
+    transition: transform 0.8s ease-in-out;
+    z-index: 1;
+}
+
+.nav-text {
+    font-family: 'Rum Raisin', sans-serif;
+    font-size: 24px;
+    opacity: 0;
+    transform: translateX(10px);
+    white-space: nowrap;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+    margin-left: 20px;
+}
+
+/*hover stuff for icons */
+.nav-home:hover {
+    width:140px;
+    height:60px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius:30px;
+}
+
+.nav-browse:hover {
+    width:150px;
+    height:60px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius:30px;
+}
+
+.nav-contact:hover {
+    width:180px;
+    height:60px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius:30px;
+}
+
+/*rotate stuff while hovering */
+.nav-home:hover .nav-icon,.nav-browse:hover .nav-icon, .nav-contact:hover .nav-icon{
+    transform: rotate(360deg);
+}
+
+/* make sure text isnt invisible */
+.nav-home:hover .nav-text,.nav-browse:hover .nav-text,.nav-contact:hover .nav-text {
+    opacity:1;
+    transform: translateX(0);
+}
+
+/* unhover animation */
+.nav-home:not(:hover) .nav-icon,.nav-browse:not(:hover) .nav-icon,.nav-contact:not(:hover) .nav-icon {
+    transform: rotate(0deg);
+}
+
+/* unhover text animation */
+.nav-home:not(:hover) .nav-text,.nav-browse:not(:hover) .nav-text,.nav-contact:not(:hover) .nav-text{
+    opacity: 0;
+    transform: translateX(10px);
+}
+
+
+/*KEYFRAMES*/
+
+/*floating stuff */
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* writing animation */
+@keyframes write {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* writing reverse animation */
+@keyframes erase {
+    from {
+        stroke-dashoffset: 0;
+    }
+    to {
+        stroke-dashoffset: 1000;
+    }
+}
+
+
+
