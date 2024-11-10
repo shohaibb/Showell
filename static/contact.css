@@ -1,0 +1,180 @@
+/* import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Rum+Raisin&family=Solitreo&display=swap');
+
+/* Showell/page dimensions stuff */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background: linear-gradient(to bottom, #2D3A57, #303030); /* background */
+    margin: 0;
+    font-family: 'Rum Raisin', sans-serif;
+    color: #FFFFFF;
+}
+
+/* navbar stuff */
+.navbar {
+    width: 100%;
+    max-width: 1200px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 80px;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-links a {
+    color: white;
+    display: flex;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.13);
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: 0.8s ease;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    animation: float 4s ease-in-out infinite; 
+    text-decoration: none; 
+}
+
+.nav-icon {
+    width: 32px;
+    height: 32px;
+    margin-left: 13px;
+    transition: transform 0.8s ease-in-out;
+    z-index: 1;
+}
+
+.nav-text {
+    font-family: 'Rum Raisin', sans-serif;
+    font-size: 24px;
+    opacity: 0;
+    transform: translateX(10px);
+    white-space: nowrap;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+    margin-left: 20px;
+}
+
+/*hover stuff for icons */
+.nav-home:hover {
+    width:140px;
+    height:60px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius:30px;
+}
+
+.nav-browse:hover {
+    width:150px;
+    height:60px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius:30px;
+}
+
+.nav-contact:hover {
+    width:180px;
+    height:60px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius:30px;
+}
+
+/*rotate stuff while hovering */
+.nav-home:hover .nav-icon,.nav-browse:hover .nav-icon, .nav-contact:hover .nav-icon{
+    transform: rotate(360deg);
+}
+
+/* make sure text isnt invisible */
+.nav-home:hover .nav-text,.nav-browse:hover .nav-text,.nav-contact:hover .nav-text {
+    opacity:1;
+    transform: translateX(0);
+}
+
+/* unhover animation */
+.nav-home:not(:hover) .nav-icon,.nav-browse:not(:hover) .nav-icon,.nav-contact:not(:hover) .nav-icon {
+    transform: rotate(0deg);
+}
+
+/* unhover text animation */
+.nav-home:not(:hover) .nav-text,.nav-browse:not(:hover) .nav-text,.nav-contact:not(:hover) .nav-text{
+    opacity: 0;
+    transform: translateX(10px);
+}
+
+/* Contact container */
+.contact-container {
+    text-align: center;
+    max-width: 800px;
+    margin-top: 10px; 
+}
+
+.contact-container h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 80px;
+    margin-bottom: 100px; 
+}
+
+/* Contact info layout */
+.contact-info {
+    display: flex;
+    justify-content: space-around;
+    font-size: 24px;
+    gap: 200px; 
+}
+
+.contact-person {
+    width: 45%; 
+}
+
+.contact-info p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.contact-info a {
+    color: #ffffff; 
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
+    color: #5f5f5f; 
+}
+
+
+/*KEYFRAMES*/
+
+/*floating stuff */
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+

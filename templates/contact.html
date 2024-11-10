@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - ShowWell</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='contact.css') }}">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li>
+                <a href="{{ url_for('home') }}" class="nav-home">
+                    <img src="{{ url_for('static', filename='home.ico') }}" alt="Home" class="nav-icon">
+                    <span class="nav-text">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('browse') }}" class="nav-browse">
+                    <img src="{{ url_for('static', filename='controller.ico') }}" alt="Browse" class="nav-icon">
+                    <span class="nav-text">Browse</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('contact') }}" class="nav-contact">
+                    <img src="{{ url_for('static', filename='phone.ico') }}" alt="Contact Us" class="nav-icon">
+                    <span class="nav-text">Contact Us</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</head>
+<body>
+    <div class="contact-container">
+        <h1>Contact Us</h1>
+        <div class="contact-info">
+            <div class="contact-person">
+                <p><strong>Mohammad Shohaib</strong><br>
+                <a href="mailto:shohaib123@tamu.edu">shohaib123@tamu.edu</a></p>
+            </div>
+            <div class="contact-person">
+                <p><strong>Maxwell Xie</strong><br>
+                <a href="mailto:mxie00@tamu.edu">mxie00@tamu.edu</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

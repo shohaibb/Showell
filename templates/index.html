@@ -21,11 +21,12 @@
                 </a>
             </li>
             <li>
-                <a href="#contact" class="nav-contact">
+                <a href="{{ url_for('contact') }}" class="nav-contact">
                     <img src="{{ url_for('static', filename='phone.ico') }}" alt="Contact Us" class="nav-icon">
                     <span class="nav-text">Contact Us</span>
                 </a>
             </li>
+            
         </ul>
     </nav>
 </head>

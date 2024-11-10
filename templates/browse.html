@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShowWell</title>
+    <title>Browse - ShowWell</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='browse.css') }}">
 
     <!-- Navigation Bar -->
@@ -21,7 +22,7 @@
                 </a>
             </li>
             <li>
-                <a href="#contact" class="nav-contact">
+                <a href="{{ url_for('contact') }}" class="nav-contact">
                     <img src="{{ url_for('static', filename='phone.ico') }}" alt="Contact Us" class="nav-icon">
                     <span class="nav-text">Contact Us</span>
                 </a>
@@ -29,7 +30,110 @@
         </ul>
     </nav>
 </head>
-<body>
 
+<body>
+    <!-- Filter Icon Container -->
+    <div class="filter-icon-container">
+        <img src="{{ url_for('static', filename='filter.ico') }}" alt="Filter" class="filter-icon">
+        <div class="filter-bar" onclick="toggleDropdown()">
+            Filter By...
+            <span class="arrow">◀</span>
+            <div class="dropdown-menu" id="dropdown-menu">
+                <p data-title="Browse Games">All Games</p>
+                <p data-title="RPG Games">RPG</p>
+                <p data-title="Action Games">Action</p>
+                <p data-title="Adventure Games">Adventure</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Browse Games Title -->
+    <h1 class="browse-title" id="browse-title">Browse Games</h1>
+
+    <!-- Game Grid -->
+    <div class="game-grid">
+        <div class="game-card"></div>
+        <div class="game-card"></div>
+        <div class="game-card"></div>
+        <div class="game-card"></div>
+        <div class="game-card"></div>
+        <div class="game-card"></div>
+        <div class="game-card"></div>
+        <div class="game-card"></div>
+    </div>
+
+    <!-- Pagination Bar -->
+    <div class="pagination-bar">
+        <span class="page-number">1</span>
+        <span class="page-number">2</span>
+        <span class="page-number">3</span>
+        <span class="page-number">4</span>
+        <span class="page-number">...</span>
+        <span class="page-number">Next</span>
+    </div>
+
+
+    <script>
+        function toggleDropdown() {
+            const filterBar = document.querySelector('.filter-bar');
+            const dropdown = document.getElementById('dropdown-menu');
+            const arrow = document.querySelector('.arrow');
+
+            // Toggle the dropdown menu and arrow rotation
+            if (filterBar.classList.contains('active')) {
+                filterBar.classList.remove('active');
+                dropdown.style.transform = 'scaleY(0)';
+                arrow.style.transform = 'rotate(270deg)';
+            } else {
+                filterBar.classList.add('active');
+                dropdown.style.transform = 'scaleY(1)';
+                arrow.style.transform = 'rotate(360deg)';
+            }
+        }
+
+        // Keep dropdown open on hover within the filter bar
+        document.querySelector('.filter-bar').addEventListener('mouseenter', () => {
+            document.querySelector('.filter-bar').classList.add('hovered');
+        });
+
+        document.querySelector('.filter-bar').addEventListener('mouseleave', () => {
+            document.querySelector('.filter-bar').classList.remove('hovered');
+        });
+
+        // Close dropdown and reset arrow when an option is clicked
+        document.querySelectorAll('.dropdown-menu p').forEach(option => {
+            option.addEventListener('click', () => {
+                const filterBar = document.querySelector('.filter-bar');
+                const dropdown = document.getElementById('dropdown-menu');
+                const arrow = document.querySelector('.arrow');
+                const browseTitle = document.getElementById('browse-title');
+
+                // Update the title text
+                const newTitle = option.getAttribute('data-title');
+                browseTitle.innerText = newTitle;
+
+                // Close dropdown and reset arrow
+                filterBar.classList.remove('active');
+                dropdown.style.transform = 'scaleY(0)';
+                arrow.style.transform = 'rotate(270deg)';
+            });
+        });
+
+        // Close dropdown on click outside the filter area
+        document.addEventListener('click', (event) => {
+            const filterIconContainer = document.querySelector('.filter-icon-container');
+            const filterBar = document.querySelector('.filter-bar');
+            const dropdown = document.getElementById('dropdown-menu');
+            const arrow = document.querySelector('.arrow');
+
+            // Check if the click is outside the filter area
+            if (!filterIconContainer.contains(event.target)) {
+                filterBar.classList.remove('active');
+                dropdown.style.transform = 'scaleY(0)';
+                arrow.style.transform = 'rotate(270deg)';
+            }
+        });
+    </script>
 </body>
+
 </html>
