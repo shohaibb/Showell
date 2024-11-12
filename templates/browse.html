@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse - ShowWell</title>
@@ -40,11 +39,26 @@
             <span class="arrow">◀</span>
             <div class="dropdown-menu" id="dropdown-menu">
                 <p data-title="Browse Games">All Games</p>
-                <p data-title="RPG Games">RPG</p>
-                <p data-title="Action Games">Action</p>
-                <p data-title="Adventure Games">Adventure</p>
+                <p data-title="Japanese Culture Games">Japanese Culture</p>
+                <p data-title="Chinese Culture Games">Chinese Culture</p>
+                <p data-title="African Culture Games">African Culture</p>
             </div>
         </div>
+    </div>
+
+    <!-- Sort Icon Container -->
+    <div class="sort-icon-container">
+        <div class="sort-bar" onclick="toggleSortDropdown()">
+            Sort By...
+            <span class="sort-arrow">▶</span>
+            <div class="sort-dropdown-menu" id="sort-dropdown-menu">
+                <p>A-Z</p>
+                <p>Rating</p>
+                <p>Newly Released</p>
+                <p>Most Popular</p>
+            </div>
+        </div>
+        <img src="{{ url_for('static', filename='sort.ico') }}" alt="Sort" class="sort-icon">
     </div>
 
     <!-- Browse Games Title -->
@@ -62,7 +76,7 @@
         <div class="game-card"></div>
     </div>
 
-    <!-- Pagination Bar -->
+    <!-- Page Number Bar -->
     <div class="pagination-bar">
         <span class="page-number">1</span>
         <span class="page-number">2</span>
@@ -72,14 +86,12 @@
         <span class="page-number">Next</span>
     </div>
 
-
     <script>
         function toggleDropdown() {
             const filterBar = document.querySelector('.filter-bar');
             const dropdown = document.getElementById('dropdown-menu');
             const arrow = document.querySelector('.arrow');
 
-            // Toggle the dropdown menu and arrow rotation
             if (filterBar.classList.contains('active')) {
                 filterBar.classList.remove('active');
                 dropdown.style.transform = 'scaleY(0)';
@@ -91,16 +103,22 @@
             }
         }
 
-        // Keep dropdown open on hover within the filter bar
-        document.querySelector('.filter-bar').addEventListener('mouseenter', () => {
-            document.querySelector('.filter-bar').classList.add('hovered');
-        });
+        function toggleSortDropdown() {
+            const sortBar = document.querySelector('.sort-bar');
+            const sortDropdown = document.getElementById('sort-dropdown-menu');
+            const sortArrow = document.querySelector('.sort-arrow');
 
-        document.querySelector('.filter-bar').addEventListener('mouseleave', () => {
-            document.querySelector('.filter-bar').classList.remove('hovered');
-        });
+            if (sortBar.classList.contains('active')) {
+                sortBar.classList.remove('active');
+                sortDropdown.style.transform = 'scaleY(0)';
+                sortArrow.style.transform = 'rotate(90deg)';
+            } else {
+                sortBar.classList.add('active');
+                sortDropdown.style.transform = 'scaleY(1)';
+                sortArrow.style.transform = 'rotate(180deg)';
+            }
+        }
 
-        // Close dropdown and reset arrow when an option is clicked
         document.querySelectorAll('.dropdown-menu p').forEach(option => {
             option.addEventListener('click', () => {
                 const filterBar = document.querySelector('.filter-bar');
@@ -108,32 +126,37 @@
                 const arrow = document.querySelector('.arrow');
                 const browseTitle = document.getElementById('browse-title');
 
-                // Update the title text
                 const newTitle = option.getAttribute('data-title');
                 browseTitle.innerText = newTitle;
 
-                // Close dropdown and reset arrow
                 filterBar.classList.remove('active');
                 dropdown.style.transform = 'scaleY(0)';
                 arrow.style.transform = 'rotate(270deg)';
             });
         });
 
-        // Close dropdown on click outside the filter area
         document.addEventListener('click', (event) => {
             const filterIconContainer = document.querySelector('.filter-icon-container');
+            const sortIconContainer = document.querySelector('.sort-icon-container');
             const filterBar = document.querySelector('.filter-bar');
+            const sortBar = document.querySelector('.sort-bar');
             const dropdown = document.getElementById('dropdown-menu');
+            const sortDropdown = document.getElementById('sort-dropdown-menu');
             const arrow = document.querySelector('.arrow');
+            const sortArrow = document.querySelector('.sort-arrow');
 
-            // Check if the click is outside the filter area
             if (!filterIconContainer.contains(event.target)) {
                 filterBar.classList.remove('active');
                 dropdown.style.transform = 'scaleY(0)';
                 arrow.style.transform = 'rotate(270deg)';
             }
+
+            if (!sortIconContainer.contains(event.target)) {
+                sortBar.classList.remove('active');
+                sortDropdown.style.transform = 'scaleY(0)';
+                sortArrow.style.transform = 'rotate(90deg)';
+            }
         });
     </script>
 </body>
-
 </html>
