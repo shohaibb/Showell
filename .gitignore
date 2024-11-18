@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 *.pyo
 config.py
+api_clients/secrets.py

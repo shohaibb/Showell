@@ -1,10 +1,59 @@
 import requests
-from config import API_KEY
+import time
+import json
+from secrets import CLIENT_ID, OAUTH_TOKEN
 
-def fetch_api_data(endpoint, params=None):
+def get_all_games():
+    url = 'https://api.igdb.com/v4/games'
     headers = {
-        "Authorization": f"Bearer {API_KEY}",
-        "Content-Type": "application/json"
+        'Client-ID': CLIENT_ID,
+        'Authorization': f'Bearer {OAUTH_TOKEN}'
     }
-    response = requests.get(endpoint, headers=headers, params=params)
-    return response.json()  # Adjust based on the API's response format
+    games = []
+    limit = 500
+    offset = 0
+    while True:
+        query = f'fields *; where id >= {offset} & id < {offset + limit}; limit 500;'
+        response = requests.post(url, headers=headers, data=query)
+        response.raise_for_status()
+        game_set = response.json()
+        if not game_set:
+            break
+        games.extend(game_set)
+        offset += limit
+        print(f"Retrieved {len(game_set)} games; Total so far: {len(games)}")
+        time.sleep(0.30)
+    return games
+
+def get_keywords():
+    url = 'https://api.igdb.com/v4/keywords'
+    headers = {
+        'Client-ID': CLIENT_ID,
+        'Authorization': f'Bearer {OAUTH_TOKEN}'
+    }
+    data = []
+    limit = 1000
+    offset = 0
+    while True:
+        query = f'fields name; where id >= {offset} & id < {offset + limit}; limit 500;'
+        response = requests.post(url, headers=headers, data=query)
+        response.raise_for_status()
+        data_set = response.json()
+        if not data_set:
+            break
+        data.extend(data_set)
+        offset += limit
+        print(f"Retrieved {len(data_set)}; Total so far: {len(data)}")
+        time.sleep(0.30)
+    return data
+
+
+games = get_all_games()
+with open('igdb_games.json', 'w') as file:
+    json.dump(games, file, indent=4)
+print(f"Saved {len(games)} games to igdb_games.json")
+
+keywords = get_keywords()
+with open('igdb_keywords.json', 'w') as file:
+    json.dump(keywords, file, indent=4)
+print(f"Saved {len(keywords)} keywords to igdb_keywords.json")
