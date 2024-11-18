@@ -4,13 +4,13 @@ asia
 asian
 china
 chinese
-asian style
-asian protagonist
-ancient china
-historical china
-chinese style
-chinese mythology
-chinese zodiac
+asianstyle
+asianprotagonist
+ancientchina
+historicalchina
+chinesestyle
+chinesemythology
+chinesezodiac
 zodiac
 yin-yang
 wukong
@@ -19,6 +19,47 @@ confucian
 confucius
 pagoda
 tofu
-romance of the three kingdoms
-kung fu
+romanceofthethreekingdoms
+kungfu
 wuxia
+dynasty
+forbiddencity
+terracotta
+silkroad
+greatwall
+confucianism
+taoism
+martialarts
+wushu
+shaolin
+qi
+chi
+fengshui
+jade
+lotus
+panda
+yinandyang
+panda
+calligraphy
+lanternfestival
+chengdu
+pagoda
+qing
+han
+zhen
+tang
+ming
+silk
+redenvelopes
+bonsai
+pinyin
+tao
+taichi
+teaceremony
+rice
+dumplings
+jadeemperor
+mandarin
+dragonboat
+chinesezodiac
+noodle

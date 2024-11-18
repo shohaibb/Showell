@@ -4,17 +4,15 @@ asia
 asian
 japan
 japanese
-asian style
-asian protagonist
-feudal japan
-modern day japan
-past japan
-historical japan
-ancient japan
-japanese mythology
-japanese culture
-japanese idols
-japanese folklore
+feudaljapan
+moderndayjapan
+pastjapan
+historicaljapan
+ancientjapan
+japanesemythology
+japaneseculture
+japaneseidols
+japanesefolklore
 amaterasu
 kitsune
 shinigami
@@ -28,6 +26,54 @@ sengoku
 shinobi
 ninja
 ninjas
-sengoku period
+sengokuperiod
 samurai
 samurais
+samurai
+ninja
+shogun
+katana
+bushido
+ronin
+dojo
+sakura
+kimono
+haiku
+shinto
+kami
+zen
+torii
+geisha
+kimonos
+yokai
+oni
+sumo
+kabuki
+tokyo
+kyoto
+edo
+meiji
+hokkaido
+ikigai
+sushi
+ramen
+mochi
+tsukimi
+bonsai
+samuraicode
+fujiyama
+shinkansen
+bento
+shuriken
+tatami
+sushiroll
+shuriken
+ramenshop
+yakitori
+seppuku
+shogunate
+haikupoetry
+katakana
+hiragana
+kintsugi
+toriigate
