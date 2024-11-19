@@ -1,7 +1,7 @@
 import requests
 import time
 import json
-from secrets import CLIENT_ID, OAUTH_TOKEN
+from config import CLIENT_ID, OAUTH_TOKEN
 
 def get_all_keywords():
     url = 'https://api.igdb.com/v4/keywords'
@@ -25,7 +25,7 @@ def get_all_keywords():
         time.sleep(0.30)
     return data
 
-keywords = get_all_keywords()
-with open('igdb_keywords.json', 'w') as file:
-    json.dump(keywords, file, indent=4)
-print(f"Saved {len(keywords)} keywords to igdb_keywords.json")
+# keywords = get_all_keywords()
+# with open('igdb_keywords.json', 'w') as file:
+#     json.dump(keywords, file, indent=4)
+# print(f"Saved {len(keywords)} keywords to igdb_keywords.json")

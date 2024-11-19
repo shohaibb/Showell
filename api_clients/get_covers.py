@@ -1,7 +1,7 @@
 import requests
 import time
 import json
-from secrets import CLIENT_ID, OAUTH_TOKEN
+from config import CLIENT_ID, OAUTH_TOKEN
 
 def get_all_covers():
     url = 'https://api.igdb.com/v4/covers'
@@ -23,7 +23,7 @@ def get_all_covers():
         time.sleep(0.30)
     return covers
 
-covers = get_all_covers()
-with open('igdb_covers.json', 'w') as file:
-    json.dump(covers, file, indent=4)
-print(f"Saved {len(covers)} covers to igdb_covers.json")
+# covers = get_all_covers()
+# with open('igdb_covers.json', 'w') as file:
+#     json.dump(covers, file, indent=4)
+# print(f"Saved {len(covers)} covers to igdb_covers.json")

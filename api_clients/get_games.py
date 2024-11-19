@@ -1,7 +1,7 @@
 import requests
 import time
 import json
-from secrets import CLIENT_ID, OAUTH_TOKEN
+from config import CLIENT_ID, OAUTH_TOKEN
 
 def get_all_games():
     url = 'https://api.igdb.com/v4/games'
@@ -25,7 +25,7 @@ def get_all_games():
         time.sleep(0.30)
     return games
 
-games = get_all_games()
-with open('igdb_games.json', 'w') as file:
-    json.dump(games, file, indent=4)
-print(f"Saved {len(games)} games to igdb_games.json")
+# games = get_all_games()
+# with open('igdb_games.json', 'w') as file:
+#     json.dump(games, file, indent=4)
+# print(f"Saved {len(games)} games to igdb_games.json")
