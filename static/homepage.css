@@ -209,11 +209,11 @@ svg {
 .game-grid {
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 60px;
 }
 
 .game-card {
-    width: 230px;
+    width: 170px;
     height: 230px;
     background-color: #ffffff21;
     border-radius: 8px;
