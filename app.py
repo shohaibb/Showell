@@ -75,15 +75,16 @@ GENRE_MAP = {
 
 # Alphabetical
 GAME_NAME = [ game for game in games if "name" in game ]
-sorted_ALPHA = sorted(games, key=lambda x: x["name"])
+sorted_ALPHA = sorted(GAME_NAME, key=lambda x: x["name"])
 
 # Rating
 GAME_RATING = [ game for game in games if "total_rating" in game ]
-sorted_RATING = sorted(games, key=lambda x: x["total_rating"])
+sorted_RATING = sorted(GAME_RATING, key=lambda x: x["total_rating"], reverse=True)
 
 # Release date
-GAME_RELEASE = [ game for game in games if "release_date" in game ]
-sorted_RELEASE = sorted(games, key=lambda x: x["release_date"])
+GAME_RELEASE = [ game for game in games if "first_release_date" in game and game["first_release_date"] < 1731801600 ]
+sorted_RELEASE = sorted(GAME_RELEASE, key=lambda x: x["first_release_date"], reverse=True)
+print(len(sorted_RELEASE))
 
 @app.route('/')
 def home():
@@ -104,15 +105,31 @@ def home():
 
 @app.route('/browse')
 def browse():
+    # Sorting logic
+    sort_option = request.args.get('sort', 'rating').lower()  # Default to alphabetical
+    if sort_option == 'rating':
+        games_to_display = sorted_RATING
+    elif sort_option == 'release':
+        games_to_display = sorted_RELEASE
+    else:  # Default to alphabetical
+        games_to_display = sorted_ALPHA
+
     # Pagination setup
     games_per_page = 8
-    total_pages = -(-len(games) // games_per_page)  # Ceiling division
+    total_pages = -(-len(games_to_display) // games_per_page)  # Ceiling division
     page = int(request.args.get('page', 1))
     start = (page - 1) * games_per_page
     end = start + games_per_page
-    paginated_games = games[start:end]
+    paginated_games = games_to_display[start:end]
 
-    return render_template('browse.html', games=paginated_games, total_pages=total_pages, current_page=page)
+    return render_template(
+        'browse.html',
+        games=paginated_games,
+        total_pages=total_pages,
+        current_page=page,
+        current_sort=sort_option
+    )
+
 
 
 @app.route('/contact')

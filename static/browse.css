@@ -379,3 +379,27 @@ body {
     background-color: #ffffff33;
 }
 
+.sort-options {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.sort-link {
+    margin: 0 10px;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: white;
+    background-color: #303030;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.sort-link.active {
+    background-color: #505050;
+    font-weight: bold;
+}
+
+.sort-link:hover {
+    background-color: #404040;
+}

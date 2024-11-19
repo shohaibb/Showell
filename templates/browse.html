@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse - ShowWell</title>
@@ -47,23 +48,21 @@
         </div>
     </div>
 
-    <!-- Sort Icon Container -->
-    <div class="sort-icon-container">
-        <div class="sort-bar" onclick="toggleSortDropdown()">
-            Sort By...
-            <span class="sort-arrow">▶</span>
-            <div class="sort-dropdown-menu" id="sort-dropdown-menu">
-                <p>A-Z</p>
-                <p>Rating</p>
-                <p>Newly Released</p>
-                <p>Most Popular</p>
-            </div>
-        </div>
-        <img src="{{ url_for('static', filename='sort.ico') }}" alt="Sort" class="sort-icon">
+    <!-- Sort Options -->
+    <div class="sort-options">
+        <a href="{{ url_for('browse', sort='alpha', page=1) }}"
+            class="sort-link {% if current_sort == 'alpha' %}active{% endif %}">
+            A-Z
+        </a>
+        <a href="{{ url_for('browse', sort='rating', page=1) }}"
+            class="sort-link {% if current_sort == 'rating' %}active{% endif %}">
+            Rating
+        </a>
+        <a href="{{ url_for('browse', sort='release', page=1) }}"
+            class="sort-link {% if current_sort == 'release' %}active{% endif %}">
+            Newly Released
+        </a>
     </div>
-
-    <!-- Browse Games Title -->
-    <h1 class="browse-title" id="browse-title">Browse Games</h1>
 
     <!-- Game Grid -->
     <div class="game-grid">
@@ -78,90 +77,93 @@
     <!-- Page Number Bar -->
     <div class="pagination-bar">
         {% if current_page > 1 %}
-        <a href="{{ url_for('browse', page=current_page - 1) }}" class="page-number">Previous</a>
+        <a href="{{ url_for('browse', sort=current_sort, page=current_page - 1) }}" class="page-number">Previous</a>
         {% endif %}
         {% for i in range(1, total_pages + 1) %}
-        <a href="{{ url_for('browse', page=i) }}" class="page-number {% if i == current_page %}active{% endif %}">
+        <a href="{{ url_for('browse', sort=current_sort, page=i) }}"
+            class="page-number {% if i == current_page %}active{% endif %}">
             {{ i }}
         </a>
         {% endfor %}
-        {% if current_page < total_pages %}
-        <a href="{{ url_for('browse', page=current_page + 1) }}" class="page-number">Next</a>
-        {% endif %}
+        {% if current_page < total_pages %} <a href="{{ url_for('browse', sort=current_sort, page=current_page + 1) }}"
+            class="page-number">Next</a>
+            {% endif %}
     </div>
+
 </body>
 
-    <script>
-        function toggleDropdown() {
+<script>
+    function toggleDropdown() {
+        const filterBar = document.querySelector('.filter-bar');
+        const dropdown = document.getElementById('dropdown-menu');
+        const arrow = document.querySelector('.arrow');
+
+        if (filterBar.classList.contains('active')) {
+            filterBar.classList.remove('active');
+            dropdown.style.transform = 'scaleY(0)';
+            arrow.style.transform = 'rotate(270deg)';
+        } else {
+            filterBar.classList.add('active');
+            dropdown.style.transform = 'scaleY(1)';
+            arrow.style.transform = 'rotate(360deg)';
+        }
+    }
+
+    function toggleSortDropdown() {
+        const sortBar = document.querySelector('.sort-bar');
+        const sortDropdown = document.getElementById('sort-dropdown-menu');
+        const sortArrow = document.querySelector('.sort-arrow');
+
+        if (sortBar.classList.contains('active')) {
+            sortBar.classList.remove('active');
+            sortDropdown.style.transform = 'scaleY(0)';
+            sortArrow.style.transform = 'rotate(90deg)';
+        } else {
+            sortBar.classList.add('active');
+            sortDropdown.style.transform = 'scaleY(1)';
+            sortArrow.style.transform = 'rotate(180deg)';
+        }
+    }
+
+    document.querySelectorAll('.dropdown-menu p').forEach(option => {
+        option.addEventListener('click', () => {
             const filterBar = document.querySelector('.filter-bar');
             const dropdown = document.getElementById('dropdown-menu');
             const arrow = document.querySelector('.arrow');
+            const browseTitle = document.getElementById('browse-title');
 
-            if (filterBar.classList.contains('active')) {
-                filterBar.classList.remove('active');
-                dropdown.style.transform = 'scaleY(0)';
-                arrow.style.transform = 'rotate(270deg)';
-            } else {
-                filterBar.classList.add('active');
-                dropdown.style.transform = 'scaleY(1)';
-                arrow.style.transform = 'rotate(360deg)';
-            }
+            const newTitle = option.getAttribute('data-title');
+            browseTitle.innerText = newTitle;
+
+            filterBar.classList.remove('active');
+            dropdown.style.transform = 'scaleY(0)';
+            arrow.style.transform = 'rotate(270deg)';
+        });
+    });
+
+    document.addEventListener('click', (event) => {
+        const filterIconContainer = document.querySelector('.filter-icon-container');
+        const sortIconContainer = document.querySelector('.sort-icon-container');
+        const filterBar = document.querySelector('.filter-bar');
+        const sortBar = document.querySelector('.sort-bar');
+        const dropdown = document.getElementById('dropdown-menu');
+        const sortDropdown = document.getElementById('sort-dropdown-menu');
+        const arrow = document.querySelector('.arrow');
+        const sortArrow = document.querySelector('.sort-arrow');
+
+        if (!filterIconContainer.contains(event.target)) {
+            filterBar.classList.remove('active');
+            dropdown.style.transform = 'scaleY(0)';
+            arrow.style.transform = 'rotate(270deg)';
         }
 
-        function toggleSortDropdown() {
-            const sortBar = document.querySelector('.sort-bar');
-            const sortDropdown = document.getElementById('sort-dropdown-menu');
-            const sortArrow = document.querySelector('.sort-arrow');
-
-            if (sortBar.classList.contains('active')) {
-                sortBar.classList.remove('active');
-                sortDropdown.style.transform = 'scaleY(0)';
-                sortArrow.style.transform = 'rotate(90deg)';
-            } else {
-                sortBar.classList.add('active');
-                sortDropdown.style.transform = 'scaleY(1)';
-                sortArrow.style.transform = 'rotate(180deg)';
-            }
+        if (!sortIconContainer.contains(event.target)) {
+            sortBar.classList.remove('active');
+            sortDropdown.style.transform = 'scaleY(0)';
+            sortArrow.style.transform = 'rotate(90deg)';
         }
-
-        document.querySelectorAll('.dropdown-menu p').forEach(option => {
-            option.addEventListener('click', () => {
-                const filterBar = document.querySelector('.filter-bar');
-                const dropdown = document.getElementById('dropdown-menu');
-                const arrow = document.querySelector('.arrow');
-                const browseTitle = document.getElementById('browse-title');
-
-                const newTitle = option.getAttribute('data-title');
-                browseTitle.innerText = newTitle;
-
-                filterBar.classList.remove('active');
-                dropdown.style.transform = 'scaleY(0)';
-                arrow.style.transform = 'rotate(270deg)';
-            });
-        });
-
-        document.addEventListener('click', (event) => {
-            const filterIconContainer = document.querySelector('.filter-icon-container');
-            const sortIconContainer = document.querySelector('.sort-icon-container');
-            const filterBar = document.querySelector('.filter-bar');
-            const sortBar = document.querySelector('.sort-bar');
-            const dropdown = document.getElementById('dropdown-menu');
-            const sortDropdown = document.getElementById('sort-dropdown-menu');
-            const arrow = document.querySelector('.arrow');
-            const sortArrow = document.querySelector('.sort-arrow');
-
-            if (!filterIconContainer.contains(event.target)) {
-                filterBar.classList.remove('active');
-                dropdown.style.transform = 'scaleY(0)';
-                arrow.style.transform = 'rotate(270deg)';
-            }
-
-            if (!sortIconContainer.contains(event.target)) {
-                sortBar.classList.remove('active');
-                sortDropdown.style.transform = 'scaleY(0)';
-                sortArrow.style.transform = 'rotate(90deg)';
-            }
-        });
-    </script>
+    });
+</script>
 </body>
+
 </html>
