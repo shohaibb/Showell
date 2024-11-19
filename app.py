@@ -16,10 +16,10 @@ from algorithms.query import get_rankings
 app = Flask(__name__)
 
 with open('api_clients/igdb_games.json', 'r') as file:
-    games = json.load(file)[:100]
+    games = json.load(file)
 
 with open('api_clients/igdb_covers.json', 'r') as file:
-    covers = json.load(file)[:100]
+    covers = json.load(file)
 
 # for game in games:
 #     cover = next((c for c in covers if 'game' in c and c['game'] == game['id']), None)
@@ -27,20 +27,31 @@ with open('api_clients/igdb_covers.json', 'r') as file:
 
 i = 0
 j = 0
+
+games = sorted(games, key=lambda x: x["id"])
+covers = [cover for cover in covers if "game" in cover]
+covers = sorted(covers, key=lambda x: x["game"])
+
 while i != len(games) and j != len(covers):
     current_game = games[i]
     current_cover = covers[j]
 
     # Check that game id == cover's game id
+    if 'game' not in current_cover:
+        j += 1
+        continue
+
     if current_game['id'] == current_cover['game']:
-        games[i]['cover_url'] = f"https:{current_cover['url'].replace('t_thumb', 't_cover_big')}"
+        current_game['cover_url'] = f"https:{current_cover['url'].replace('t_thumb', 't_cover_big')}"
+        #print(f"i: {i}, j: {j}")
+        i += 1
+        j += 1
 
     elif current_game['id'] > current_cover['game']:
         j += 1
 
     elif current_game['id'] < current_cover['game']:
         i += 1
-
 
 # Define a genre mapping
 GENRE_MAP = {
