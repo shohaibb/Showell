@@ -22,6 +22,9 @@ with open('api_clients/igdb_games.json', 'r') as file:
 with open('api_clients/igdb_covers.json', 'r') as file:
     covers = json.load(file)
 
+with open('api_clients/igdb_keywords.json', 'r') as file:
+    keywords = json.load(file)
+
 # Assigning covers to games
 i = 0
 j = 0
@@ -72,7 +75,6 @@ GENRE_MAP = {
 }
 
 # Sorted lists:
-
 # Alphabetical
 GAME_NAME = [ game for game in games if "name" in game ]
 sorted_ALPHA = sorted(GAME_NAME, key=lambda x: x["name"])
@@ -84,7 +86,51 @@ sorted_RATING = sorted(GAME_RATING, key=lambda x: x["total_rating"], reverse=Tru
 # Release date
 GAME_RELEASE = [ game for game in games if "first_release_date" in game and game["first_release_date"] < 1731801600 ]
 sorted_RELEASE = sorted(GAME_RELEASE, key=lambda x: x["first_release_date"], reverse=True)
-print(len(sorted_RELEASE))
+
+
+# Filtered lists:
+FILTERED_GAMES = get_rankings(games, keywords)
+print("DONE FILTER")
+# China
+# GAME_RANKIDS_CHINA = FILTERED_GAMES[0]
+# GAME_IDS_CHINA = [ game[1] for game in GAME_RANKIDS_CHINA ]
+# GAMES_CHINA = [ game for game in games if game['id'] in GAME_IDS_CHINA ]
+# for game in GAMES_CHINA:
+#     if game['id'] in GAME_IDS_CHINA:
+#         game['rank'] = ''.join([game for game in GAME_RANKIDS_CHINA if game['id'] == game[1]])
+
+# print(GAMES_CHINA)
+
+# 0 = china
+# 1 = egypt
+# 2 = greece
+# 3 = japan
+# 4 = middleeast
+# 5 = norway
+# 6 = rome
+# 7 = lgbtq
+# 8 = neurodivergent
+
+for i in range(9):
+    current_rank_ids = sorted(FILTERED_GAMES[i], key=lambda x: x[1])
+
+    j = 0
+    k = 0
+    while (j != len(current_rank_ids) and k != len(games)):
+        if current_rank_ids[j][1] == games[k]['id']:
+            games[k][f'rank_{i}'] = current_rank_ids[j][0]
+            j += 1
+            k += 1
+
+        elif current_rank_ids[j][1] > games[k]['id']:
+            k += 1
+        
+        elif current_rank_ids[j][1] < games[k]['id']:
+            j += 1
+
+    print(f"DONE: {i}")
+
+print([game for game in games if game['id'] == 76882][0])
 
 @app.route('/')
 def home():

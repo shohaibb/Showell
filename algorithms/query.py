@@ -1,12 +1,6 @@
 import json
 
-def get_rankings():
-    with open('igdb_games.json', 'r') as file:
-        games = json.load(file)
-        
-    with open('igdb_keywords.json', 'r') as file:
-        keywords = json.load(file)
-        
+def get_rankings(games, keywords):     
     query_CHINA = ""
     query_EGYPT = ""
     query_GREECE = ""
@@ -15,42 +9,42 @@ def get_rankings():
     query_NORWAY = ""
     query_ROME = ""
 
-    with open('culture_term_lists/china.txt') as file:
+    with open('algorithms/culture_term_lists/china.txt') as file:
         for line in file:
             query_CHINA += line.strip() + " "
 
-    with open('culture_term_lists/egypt.txt') as file:
+    with open('algorithms/culture_term_lists/egypt.txt') as file:
         for line in file:
             query_EGYPT += line.strip() + " "
             
-    with open('culture_term_lists/greece.txt') as file:
+    with open('algorithms/culture_term_lists/greece.txt') as file:
         for line in file:
             query_GREECE += line.strip() + " "
             
-    with open('culture_term_lists/japan.txt') as file:
+    with open('algorithms/culture_term_lists/japan.txt') as file:
         for line in file:
             query_JAPAN += line.strip() + " "
             
-    with open('culture_term_lists/middle_east.txt') as file:
+    with open('algorithms/culture_term_lists/middle_east.txt') as file:
         for line in file:
             query_MIDDLEEAST += line.strip() + " "
             
-    with open('culture_term_lists/norway.txt') as file:
+    with open('algorithms/culture_term_lists/norway.txt') as file:
         for line in file:
             query_NORWAY += line.strip() + " "
             
-    with open('culture_term_lists/rome.txt') as file:
+    with open('algorithms/culture_term_lists/rome.txt') as file:
         for line in file:
             query_ROME += line.strip() + " "
             
     query_LGBTQ = ""
     query_NEURODIVERGENT = ""
 
-    with open('identity_term_lists/lgbtq.txt') as file:
+    with open('algorithms/identity_term_lists/lgbtq.txt') as file:
         for line in file:
             query_LGBTQ += line.strip() + " "
             
-    with open('identity_term_lists/neurodivergent.txt') as file:
+    with open('algorithms/identity_term_lists/neurodivergent.txt') as file:
         for line in file:
             query_NEURODIVERGENT += line.strip() + " "
             
@@ -139,55 +133,64 @@ def get_rankings():
     for rank, idx in enumerate(games_ranked_CHINA, 1):
         GAME_ID = GAME_IDS[idx]
         score = similarities_CHINA[0, idx]
-        CHINA_RANKINGS.append((rank, GAME_ID))
+        if (score > 0):
+            CHINA_RANKINGS.append((rank, GAME_ID))
         
     EGYPT_RANKINGS = []
     for rank, idx in enumerate(games_ranked_EGYPT, 1):
         GAME_ID = GAME_IDS[idx]
         score = similarities_EGYPT[0, idx]
-        EGYPT_RANKINGS.append((rank, GAME_ID))
+        if (score > 0):
+            EGYPT_RANKINGS.append((rank, GAME_ID))
         
     GREECE_RANKINGS = []
     for rank, idx in enumerate(games_ranked_GREECE, 1):
         GAME_ID = GAME_IDS[idx]
         score = similarities_GREECE[0, idx]
-        GREECE_RANKINGS.append((rank, GAME_ID))
+        if (score > 0):
+            GREECE_RANKINGS.append((rank, GAME_ID))
         
     JAPAN_RANKINGS = []
     for rank, idx in enumerate(games_ranked_JAPAN, 1):
         GAME_ID = GAME_IDS[idx]
         score = similarities_JAPAN[0, idx]
-        JAPAN_RANKINGS.append((rank, GAME_ID))
+        if (score > 0):
+            JAPAN_RANKINGS.append((rank, GAME_ID))
         
     MIDDLEEAST_RANKINGS = []
     for rank, idx in enumerate(games_ranked_MIDDLEEAST, 1):
         GAME_ID = GAME_IDS[idx]
         score = similarities_MIDDLEEAST[0, idx]
-        MIDDLEEAST_RANKINGS.append((rank, GAME_ID))
+        if (score > 0):
+            MIDDLEEAST_RANKINGS.append((rank, GAME_ID))
         
     NORWAY_RANKINGS = []
     for rank, idx in enumerate(games_ranked_NORWAY, 1):
         GAME_ID = GAME_IDS[idx]
         score = similarities_NORWAY[0, idx]
-        NORWAY_RANKINGS.append((rank, GAME_ID))
+        if (score > 0):
+            NORWAY_RANKINGS.append((rank, GAME_ID))
         
     ROME_RANKINGS = []
     for rank, idx in enumerate(games_ranked_ROME, 1):
         GAME_ID = GAME_IDS[idx]
         score = similarities_ROME[0, idx]
-        ROME_RANKINGS.append((rank, GAME_ID))
+        if (score > 0):
+            ROME_RANKINGS.append((rank, GAME_ID))
         
     LGBTQ_RANKINGS = []
     for rank, idx in enumerate(games_ranked_LGBTQ, 1):
         GAME_ID = GAME_IDS[idx]
         score = similarities_LGBTQ[0, idx]
-        LGBTQ_RANKINGS.append((rank, GAME_ID))
+        if (score > 0):
+            LGBTQ_RANKINGS.append((rank, GAME_ID))
         
     NEURODIVERGENT_RANKINGS = []
     for rank, idx in enumerate(games_ranked_NEURODIVERGENT, 1):
         GAME_ID = GAME_IDS[idx]
         score = similarities_NEURODIVERGENT[0, idx]
-        NEURODIVERGENT_RANKINGS.append((rank, GAME_ID))
+        if (score > 0):
+            NEURODIVERGENT_RANKINGS.append((rank, GAME_ID))
         
     return [
         CHINA_RANKINGS,
