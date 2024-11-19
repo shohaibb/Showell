@@ -403,3 +403,21 @@ body {
 .sort-link:hover {
     background-color: #404040;
 }
+
+.sort-dropdown-menu a {
+    display: block;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+.sort-dropdown-menu a:hover {
+    background-color: #505050;
+}
+
+.sort-dropdown-menu .active {
+    font-weight: bold;
+    color: #6f4ee8;
+}

@@ -48,21 +48,30 @@
         </div>
     </div>
 
-    <!-- Sort Options -->
-    <div class="sort-options">
-        <a href="{{ url_for('browse', sort='alpha', page=1) }}"
-            class="sort-link {% if current_sort == 'alpha' %}active{% endif %}">
-            A-Z
-        </a>
-        <a href="{{ url_for('browse', sort='rating', page=1) }}"
-            class="sort-link {% if current_sort == 'rating' %}active{% endif %}">
-            Rating
-        </a>
-        <a href="{{ url_for('browse', sort='release', page=1) }}"
-            class="sort-link {% if current_sort == 'release' %}active{% endif %}">
-            Newly Released
-        </a>
+    <!-- Sort Icon Container -->
+    <div class="sort-icon-container">
+        <div class="sort-bar" onclick="toggleSortDropdown()">
+            Sort By...
+            <span class="sort-arrow">▶</span>
+            <div class="sort-dropdown-menu" id="sort-dropdown-menu">
+                <a href="{{ url_for('browse', sort='alpha', page=1) }}"
+                    class="{% if current_sort == 'alpha' %}active{% endif %}">
+                    A-Z
+                </a>
+                <a href="{{ url_for('browse', sort='rating', page=1) }}"
+                    class="{% if current_sort == 'rating' %}active{% endif %}">
+                    Rating
+                </a>
+                <a href="{{ url_for('browse', sort='release', page=1) }}"
+                    class="{% if current_sort == 'release' %}active{% endif %}">
+                    Newly Released
+                </a>
+            </div>
+        </div>
+        <img src="{{ url_for('static', filename='sort.ico') }}" alt="Sort" class="sort-icon">
     </div>
+
+
 
     <!-- Game Grid -->
     <div class="game-grid">
