@@ -168,13 +168,18 @@ def browse():
     end = start + games_per_page
     paginated_games = games_to_display[start:end]
 
+    # Calculate page range for pagination
+    page_range = list(range(max(1, page - 3), min(total_pages + 1, page + 4)))
+
     return render_template(
         'browse.html',
         games=paginated_games,
         total_pages=total_pages,
         current_page=page,
-        current_sort=sort_option
+        current_sort=sort_option,
+        page_range=page_range
     )
+
 
 
 

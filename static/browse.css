@@ -146,7 +146,7 @@ body {
     color: #ffffff;
     text-align: center;
     position: absolute;
-    top: 60px;
+    top: 80px;
     width: 100%;
     z-index: 1;
     pointer-events: none;
@@ -331,32 +331,9 @@ body {
 }
 
 
-/* Game Grid */
-.game-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    padding-top: 100px;
-    max-width: 1100px;
-    width: 100%;
-    justify-items: center;
-}
-
-/* Game Cards */
-.game-card {
-    width: 170px;
-    height: 230px;
-    background-color: #ffffff21;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
-}
-
-.game-card:hover {
-    transform: scale(1.05);
-}
 
 /* Page number bar */
+/* Pagination Bar */
 .pagination-bar {
     display: flex;
     justify-content: center;
@@ -373,12 +350,26 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    text-decoration: none;
 }
 
 .page-number:hover {
     background-color: #ffffff33;
 }
 
+/* Highlight current page */
+.page-number.active {
+    background-color: #171e2e;
+    color: #ffffff;
+    cursor: default;
+    pointer-events: none; /* Prevent clicking on the active page */
+    font-weight: bold;
+}
+
+
+
+
+/*sorting stuff*/
 .sort-options {
     display: flex;
     justify-content: center;
@@ -420,4 +411,59 @@ body {
 .sort-dropdown-menu .active {
     font-weight: bold;
     color: #6f4ee8;
+}
+
+
+/* Game Grid */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 2 columns */
+    grid-template-rows: repeat(2, auto); /* 5 rows */
+    gap: 60px; /* Space between cards */
+    justify-content: center;
+    margin-top: 100px; /* Adds spacing above the grid */
+    direction: rtl; /* Flip direction to fix order */
+}
+
+.game-card {
+    direction: ltr; /* Reset direction for individual cards */
+    width: 170px;
+    height: 230px;
+    background-color: #ffffff21;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.game-card img {
+    width: 100%;
+    height: calc(100% - 30px);
+    object-fit: fill;
+    display: block;
+    position: relative;
+    z-index: 0;
+}
+
+.game-card p {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #161616;
+    color: white;
+    font-family: 'Rum Raisin', sans-serif;
+    font-size: 16px;
+    text-align: center;
+    padding: 10px 0;
+    margin: 0;
+    line-height: 1.4;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+.game-card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
