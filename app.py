@@ -30,7 +30,7 @@ def home():
     # Attach the cover URL to each game
     for game in featured_games:
         cover = next((c for c in covers if 'game' in c and c['game'] == game['id']), None)
-        game['cover_url'] = f"https:{cover['url']}" if cover and 'url' in cover else None
+        game['cover_url'] = f"https:{cover['url'].replace('t_thumb', 't_cover_big')}" if cover else None
     
     # Pass the featured games to the template
     return render_template('index.html', featured_games=featured_games)
