@@ -1,8 +1,9 @@
 import sys
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import json
 from datetime import datetime
+
 
 # Add the current directory to the Python path
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
@@ -67,7 +68,26 @@ def home():
 
 @app.route('/browse')
 def browse():
-    return render_template('browse.html')
+    with open('api_clients/igdb_games.json', 'r') as file:
+        games = json.load(file)
+    
+    with open('api_clients/igdb_covers.json', 'r') as file:
+        covers = json.load(file)
+
+    for game in games:
+        cover = next((c for c in covers if 'game' in c and c['game'] == game['id']), None)
+        game['cover_url'] = f"https:{cover['url'].replace('t_thumb', 't_cover_big')}" if cover else None
+
+    # Pagination setup
+    games_per_page = 8
+    total_pages = -(-len(games) // games_per_page)  # Ceiling division
+    page = int(request.args.get('page', 1))
+    start = (page - 1) * games_per_page
+    end = start + games_per_page
+    paginated_games = games[start:end]
+
+    return render_template('browse.html', games=paginated_games, total_pages=total_pages, current_page=page)
+
 
 @app.route('/contact')
 def contact():

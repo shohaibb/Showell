@@ -67,25 +67,29 @@
 
     <!-- Game Grid -->
     <div class="game-grid">
-        <div class="game-card"></div>
-        <div class="game-card"></div>
-        <div class="game-card"></div>
-        <div class="game-card"></div>
-        <div class="game-card"></div>
-        <div class="game-card"></div>
-        <div class="game-card"></div>
-        <div class="game-card"></div>
+        {% for game in games %}
+        <div class="game-card">
+            <img src="{{ game.cover_url }}" alt="{{ game.name }}">
+            <p>{{ game.name }}</p>
+        </div>
+        {% endfor %}
     </div>
 
     <!-- Page Number Bar -->
     <div class="pagination-bar">
-        <span class="page-number">1</span>
-        <span class="page-number">2</span>
-        <span class="page-number">3</span>
-        <span class="page-number">4</span>
-        <span class="page-number">...</span>
-        <span class="page-number">Next</span>
+        {% if current_page > 1 %}
+        <a href="{{ url_for('browse', page=current_page - 1) }}" class="page-number">Previous</a>
+        {% endif %}
+        {% for i in range(1, total_pages + 1) %}
+        <a href="{{ url_for('browse', page=i) }}" class="page-number {% if i == current_page %}active{% endif %}">
+            {{ i }}
+        </a>
+        {% endfor %}
+        {% if current_page < total_pages %}
+        <a href="{{ url_for('browse', page=current_page + 1) }}" class="page-number">Next</a>
+        {% endif %}
     </div>
+</body>
 
     <script>
         function toggleDropdown() {
