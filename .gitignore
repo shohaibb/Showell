@@ -4,3 +4,6 @@ __pycache__/
 *.pyo
 config.py
 api_clients/secrets.py
+api_clients/igdb_covers.json
+api_clients/igdb_games.json
+api_clients/igdb_keywords.json

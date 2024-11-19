@@ -5,10 +5,10 @@ from flask import Flask, render_template
 # Add the current directory to the Python path
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
-# Import functions from your project modules
-# from algorithms.classification_algorithm import my_algorithm_function
-# from api_clients.database_client import fetch_data_from_db
-# from api_clients.external_api_client import fetch_api_data
+from api_clients.get_covers import get_all_covers
+from api_clients.get_games import get_all_games
+from api_clients.get_keywords import get_all_keywords
+from algorithms.query import get_rankings
 
 app = Flask(__name__)
 
