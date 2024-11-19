@@ -15,6 +15,32 @@ from algorithms.query import get_rankings
 
 app = Flask(__name__)
 
+with open('api_clients/igdb_games.json', 'r') as file:
+    games = json.load(file)[:100]
+
+with open('api_clients/igdb_covers.json', 'r') as file:
+    covers = json.load(file)[:100]
+
+# for game in games:
+#     cover = next((c for c in covers if 'game' in c and c['game'] == game['id']), None)
+#     game['cover_url'] = f"https:{cover['url'].replace('t_thumb', 't_cover_big')}" if cover else None
+
+i = 0
+j = 0
+while i != len(games) and j != len(covers):
+    current_game = games[i]
+    current_cover = covers[j]
+
+    # Check that game id == cover's game id
+    if current_game['id'] == current_cover['game']:
+        games[i]['cover_url'] = f"https:{current_cover['url'].replace('t_thumb', 't_cover_big')}"
+
+    elif current_game['id'] > current_cover['game']:
+        j += 1
+
+    elif current_game['id'] < current_cover['game']:
+        i += 1
+
 
 # Define a genre mapping
 GENRE_MAP = {
@@ -45,12 +71,6 @@ GENRE_MAP = {
 
 @app.route('/')
 def home():
-    with open('api_clients/igdb_games.json', 'r') as file:
-        games = json.load(file)
-    
-    with open('api_clients/igdb_covers.json', 'r') as file:
-        covers = json.load(file)
-
     # IDs of the games to feature
     featured_game_ids = [136879, 302156, 119133]
     
@@ -68,16 +88,6 @@ def home():
 
 @app.route('/browse')
 def browse():
-    with open('api_clients/igdb_games.json', 'r') as file:
-        games = json.load(file)
-    
-    with open('api_clients/igdb_covers.json', 'r') as file:
-        covers = json.load(file)
-
-    for game in games:
-        cover = next((c for c in covers if 'game' in c and c['game'] == game['id']), None)
-        game['cover_url'] = f"https:{cover['url'].replace('t_thumb', 't_cover_big')}" if cover else None
-
     # Pagination setup
     games_per_page = 8
     total_pages = -(-len(games) // games_per_page)  # Ceiling division
