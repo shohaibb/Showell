@@ -39,15 +39,20 @@
         <div class="quote">Endless video games, infinite possibilities. Unveil your next great adventure with just a few clicks</div>
     </div>
 
-    <!-- Featured games section -->
-    <div class="featured-games">
-        <h2>Featured Games</h2>
-        <div class="game-grid">
-            <div class="game-card"></div>
-            <div class="game-card"></div>
-            <div class="game-card"></div>
+<!-- Featured games section -->
+<div class="featured-games">
+    <h2>Featured Games</h2>
+    <div class="game-grid">
+        {% for game in featured_games %}
+        <div class="game-card">
+            <img src="{{ game.cover_url }}" alt="{{ game.name }}">
+            <p>{{ game.name }}</p>
         </div>
+        {% endfor %}
     </div>
+</div>
+
+
 
     <script>
         const textElement = document.querySelector('.handwritten');
