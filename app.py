@@ -148,7 +148,6 @@ def home():
     # Pass the featured games to the template
     return render_template('index.html', featured_games=featured_games)
 
-
 @app.route('/browse')
 def browse():
     # Sorting logic
@@ -179,9 +178,6 @@ def browse():
         current_sort=sort_option,
         page_range=page_range
     )
-
-
-
 
 @app.route('/contact')
 def contact():
@@ -231,7 +227,7 @@ def game_detail(game_id):
     game_data = {
         "name": game.get("name"),
         "summary": game.get("summary", "No summary available."),
-        "rating": game.get("aggregated_rating", "No rating available."),
+        "rating": game.get("total_rating", "No rating available."),
         "release_date": release_date,
         "genres": genres,
         "game_modes": game_modes,
@@ -239,9 +235,6 @@ def game_detail(game_id):
     }
 
     return render_template('game_detail.html', game=game_data)
-
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
