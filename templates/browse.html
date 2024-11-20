@@ -42,18 +42,26 @@
         Filter By...
         <span class="arrow">◀</span>
         <div class="dropdown-menu" id="dropdown-menu">
-            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter=0, page=1) }}`"
-               class="{% if current_filter == 0 %}active{% endif %}">China</p>
-            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter=1, page=1) }}`"
-               class="{% if current_filter == 1 %}active{% endif %}">Egypt</p>
-            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter=2, page=1) }}`"
-               class="{% if current_filter == 2 %}active{% endif %}">Greece</p>
-            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter=3, page=1) }}`"
-               class="{% if current_filter == 3 %}active{% endif %}">Japan</p>
-            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter=4, page=1) }}`"
-               class="{% if current_filter == 4 %}active{% endif %}">Middle East</p>
-            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter=9, page=1) }}`"
-               class="{% if current_filter == 9 %}active{% endif %}">All Games</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='china', page=1) }}`"
+               class="{% if current_filter == 'china' %}active{% endif %}">Chinese Culture</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='egypt', page=1) }}`"
+               class="{% if current_filter == 'egypt' %}active{% endif %}">Egyptian Culture</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='greece', page=1) }}`"
+               class="{% if current_filter == 'greece' %}active{% endif %}">Greek Culture</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='japan', page=1) }}`"
+               class="{% if current_filter == 'japan' %}active{% endif %}">Japanese Culture</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='middleeast', page=1) }}`"
+               class="{% if current_filter == 'middleeast' %}active{% endif %}">Middle Eastern Culture</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='norway', page=1) }}`"
+               class="{% if current_filter == 'norway' %}active{% endif %}">Norse Culture</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='rome', page=1) }}`"
+               class="{% if current_filter == 'rome' %}active{% endif %}">Roman Culture</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='lgbtq', page=1) }}`"
+               class="{% if current_filter == 'lgbtq' %}active{% endif %}">LGBTQ Themes</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='neurodivergent', page=1) }}`"
+               class="{% if current_filter == 'neurodivergent' %}active{% endif %}">Neurodivergent Themes</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='all games', page=1) }}`"
+               class="{% if current_filter == 'all games' %}active{% endif %}">All Games</p>
         </div>
     </div>
 </div>

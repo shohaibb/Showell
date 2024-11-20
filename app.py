@@ -93,7 +93,7 @@ def browse():
     filter_option = request.args.get('filter', 'all games').lower()
     
     sort_index = sort_map.get(sort_option, 1)
-    filter_index = filter_map(filter_option, 9)
+    filter_index = filter_map.get(filter_option, 9)
     games_to_display = SORTED_FILTERED[sort_index][filter_index]
     
     games_per_page = 8
