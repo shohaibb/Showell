@@ -36,55 +36,54 @@
     <!-- Browse Games Title -->
     <h1 class="browse-title" id="browse-title">Browse Games</h1>
     <!-- Filter Icon Container -->
-<div class="filter-icon-container">
-    <img src="{{ url_for('static', filename='filter.ico') }}" alt="Filter" class="filter-icon">
-    <div class="filter-bar" onclick="toggleDropdown()">
-        Filter By...
-        <span class="arrow">◀</span>
-        <div class="dropdown-menu" id="dropdown-menu">
-            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='china', page=1) }}`"
-               class="{% if current_filter == 'china' %}active{% endif %}">Chinese Culture</p>
-            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='egypt', page=1) }}`"
-               class="{% if current_filter == 'egypt' %}active{% endif %}">Egyptian Culture</p>
-            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='greece', page=1) }}`"
-               class="{% if current_filter == 'greece' %}active{% endif %}">Greek Culture</p>
-            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='japan', page=1) }}`"
-               class="{% if current_filter == 'japan' %}active{% endif %}">Japanese Culture</p>
-            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='middleeast', page=1) }}`"
-               class="{% if current_filter == 'middleeast' %}active{% endif %}">Middle Eastern Culture</p>
-            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='norway', page=1) }}`"
-               class="{% if current_filter == 'norway' %}active{% endif %}">Norse Culture</p>
-            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='rome', page=1) }}`"
-               class="{% if current_filter == 'rome' %}active{% endif %}">Roman Culture</p>
-            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='lgbtq', page=1) }}`"
-               class="{% if current_filter == 'lgbtq' %}active{% endif %}">LGBTQ Themes</p>
-            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='neurodivergent', page=1) }}`"
-               class="{% if current_filter == 'neurodivergent' %}active{% endif %}">Neurodivergent Themes</p>
-            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='all games', page=1) }}`"
-               class="{% if current_filter == 'all games' %}active{% endif %}">All Games</p>
+    <div class="filter-icon-container">
+        <img src="{{ url_for('static', filename='filter.ico') }}" alt="Filter" class="filter-icon">
+        <div class="filter-bar" onclick="toggleDropdown()">
+            Filter By...
+            <span class="arrow">◀</span>
+            <div class="dropdown-menu" id="dropdown-menu">
+                <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='china', page=1) }}`"
+                class="{% if current_filter == 'china' %}active{% endif %}">Chinese Culture</p>
+                <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='egypt', page=1) }}`"
+                class="{% if current_filter == 'egypt' %}active{% endif %}">Egyptian Culture</p>
+                <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='greece', page=1) }}`"
+                class="{% if current_filter == 'greece' %}active{% endif %}">Greek Culture</p>
+                <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='japan', page=1) }}`"
+                class="{% if current_filter == 'japan' %}active{% endif %}">Japanese Culture</p>
+                <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='middleeast', page=1) }}`"
+                class="{% if current_filter == 'middleeast' %}active{% endif %}">Middle Eastern Culture</p>
+                <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='norway', page=1) }}`"
+                class="{% if current_filter == 'norway' %}active{% endif %}">Norse Culture</p>
+                <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='rome', page=1) }}`"
+                class="{% if current_filter == 'rome' %}active{% endif %}">Roman Culture</p>
+                <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='lgbtq', page=1) }}`"
+                class="{% if current_filter == 'lgbtq' %}active{% endif %}">LGBTQ Themes</p>
+                <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='neurodivergent', page=1) }}`"
+                class="{% if current_filter == 'neurodivergent' %}active{% endif %}">Neurodivergent Themes</p>
+                <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter='all games', page=1) }}`"
+                class="{% if current_filter == 'all games' %}active{% endif %}">All Games</p>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Sort Icon Container -->
-<div class="sort-icon-container">
-    <div class="sort-bar" onclick="toggleSortDropdown()">
-        Sort By...
-        <span class="sort-arrow">▶</span>
-        <div class="sort-dropdown-menu" id="sort-dropdown-menu">
-            <p onclick="window.location.href=`{{ url_for('browse', sort='alpha', filter=current_filter, page=1) }}`"
-               class="{% if current_sort == 'alpha' %}active{% endif %}">A-Z</p>
-            <p onclick="window.location.href=`{{ url_for('browse', sort='rating', filter=current_filter, page=1) }}`"
-               class="{% if current_sort == 'rating' %}active{% endif %}">Rating</p>
-            <p onclick="window.location.href=`{{ url_for('browse', sort='release', filter=current_filter, page=1) }}`"
-               class="{% if current_sort == 'release' %}active{% endif %}">Newly Released</p>
-            <p onclick="window.location.href=`{{ url_for('browse', sort='ranking', filter=current_filter, page=1) }}`"
-               class="{% if current_sort == 'ranking' %}active{% endif %}">Ranking</p>
+    <!-- Sort Icon Container -->
+    <div class="sort-icon-container">
+        <img src="{{ url_for('static', filename='sort.ico') }}" alt="Sort" class="sort-icon">
+        <div class="sort-bar" onclick="toggleSortDropdown()">
+            Sort By...
+            <span class="sort-arrow">▶</span>
+            <div class="sort-dropdown-menu" id="sort-dropdown-menu">
+                <p onclick="window.location.href=`{{ url_for('browse', sort='alpha', filter=current_filter, page=1) }}`"
+                class="{% if current_sort == 'alpha' %}active{% endif %}">A-Z</p>
+                <p onclick="window.location.href=`{{ url_for('browse', sort='rating', filter=current_filter, page=1) }}`"
+                class="{% if current_sort == 'rating' %}active{% endif %}">Rating</p>
+                <p onclick="window.location.href=`{{ url_for('browse', sort='release', filter=current_filter, page=1) }}`"
+                class="{% if current_sort == 'release' %}active{% endif %}">Newly Released</p>
+                <p onclick="window.location.href=`{{ url_for('browse', sort='ranking', filter=current_filter, page=1) }}`"
+                class="{% if current_sort == 'ranking' %}active{% endif %}">Ranking</p>
+            </div>
         </div>
     </div>
-    <img src="{{ url_for('static', filename='sort.ico') }}" alt="Sort" class="sort-icon">
-</div>
-
 
     <!-- Game Grid -->
     <div class="game-grid">
