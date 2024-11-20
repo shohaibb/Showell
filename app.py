@@ -67,34 +67,51 @@ def home():
     # Pass the featured games to the template
     return render_template('index.html', featured_games=featured_games)
 
+sort_map = {
+    'alpha': 0,
+    'rating': 1,
+    'release': 2,
+    'ranking': 3
+}
+
+filter_map = {
+    'china': 0,
+    'egypt': 1,
+    'greece': 2,
+    'japan': 3,
+    'middleeast': 4,
+    'norway': 5,
+    'rome': 6,
+    'lgbtq': 7,
+    'neurodivergent': 8,
+    'all games': 9
+}
+
 @app.route('/browse')
 def browse():
-    # Sorting logic
-    sort_option = request.args.get('sort', 'rating').lower()  # Default to alphabetical
-    if sort_option == 'rating':
-        games_to_display = SORTED_FILTERED[1][9]
-    elif sort_option == 'release':
-        games_to_display = SORTED_FILTERED[2][9]
-    else:  # Default to alphabetical
-        games_to_display = SORTED_FILTERED[0][9]
-
-    # Pagination setup
+    sort_option = request.args.get('sort', 'rating').lower()
+    filter_option = request.args.get('filter', 'all games').lower()
+    
+    sort_index = sort_map.get(sort_option, 1)
+    filter_index = filter_map(filter_option, 9)
+    games_to_display = SORTED_FILTERED[sort_index][filter_index]
+    
     games_per_page = 8
-    total_pages = -(-len(games_to_display) // games_per_page)  # Ceiling division
+    total_pages = -(-len(games_to_display) // games_per_page)
     page = int(request.args.get('page', 1))
     start = (page - 1) * games_per_page
     end = start + games_per_page
     paginated_games = games_to_display[start:end]
-
-    # Calculate page range for pagination
+    
     page_range = list(range(max(1, page - 3), min(total_pages + 1, page + 4)))
-
+    
     return render_template(
         'browse.html',
         games=paginated_games,
         total_pages=total_pages,
         current_page=page,
         current_sort=sort_option,
+        current_filter=filter_option,
         page_range=page_range
     )
 

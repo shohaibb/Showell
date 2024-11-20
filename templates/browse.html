@@ -42,10 +42,18 @@
             Filter By...
             <span class="arrow">◀</span>
             <div class="dropdown-menu" id="dropdown-menu">
-                <p data-title="Browse Games">All Games</p>
-                <p data-title="Japanese Culture Games">Japanese Culture</p>
-                <p data-title="Chinese Culture Games">Chinese Culture</p>
-                <p data-title="African Culture Games">African Culture</p>
+                <p onclick="window.location.href='{{ url_for('browse', sort=current_sort, filter=0, page=1) }}'"
+                class="{% if current_filter == 0 %}active{% endif %}">China</p>
+                <p onclick="window.location.href='{{ url_for('browse', sort=current_sort, filter=1, page=1) }}'"
+                class="{% if current_filter == 1 %}active{% endif %}">Egypt</p>
+                <p onclick="window.location.href='{{ url_for('browse', sort=current_sort, filter=2, page=1) }}'"
+                class="{% if current_filter == 2 %}active{% endif %}">Greece</p>
+                <p onclick="window.location.href='{{ url_for('browse', sort=current_sort, filter=3, page=1) }}'"
+                class="{% if current_filter == 3 %}active{% endif %}">Japan</p>
+                <p onclick="window.location.href='{{ url_for('browse', sort=current_sort, filter=4, page=1) }}'"
+                class="{% if current_filter == 4 %}active{% endif %}">Middle East</p>
+                <p onclick="window.location.href='{{ url_for('browse', sort=current_sort, filter=9, page=1) }}'"
+                class="{% if current_filter == 9 %}active{% endif %}">All Games</p>
             </div>
         </div>
     </div>
@@ -56,73 +64,60 @@
             Sort By...
             <span class="sort-arrow">▶</span>
             <div class="sort-dropdown-menu" id="sort-dropdown-menu">
-                <a href="{{ url_for('browse', sort='alpha', page=1) }}"
-                    class="{% if current_sort == 'alpha' %}active{% endif %}">
-                    A-Z
-                </a>
-                <a href="{{ url_for('browse', sort='rating', page=1) }}"
-                    class="{% if current_sort == 'rating' %}active{% endif %}">
-                    Rating
-                </a>
-                <a href="{{ url_for('browse', sort='release', page=1) }}"
-                    class="{% if current_sort == 'release' %}active{% endif %}">
-                    Newly Released
-                </a>
+                <p onclick="window.location.href='{{ url_for('browse', sort='alpha', filter=current_filter, page=1) }}'"
+                class="{% if current_sort == 'alpha' %}active{% endif %}">A-Z</p>
+                <p onclick="window.location.href='{{ url_for('browse', sort='rating', filter=current_filter, page=1) }}'"
+                class="{% if current_sort == 'rating' %}active{% endif %}">Rating</p>
+                <p onclick="window.location.href='{{ url_for('browse', sort='release', filter=current_filter, page=1) }}'"
+                class="{% if current_sort == 'release' %}active{% endif %}">Newly Released</p>
+                <p onclick="window.location.href='{{ url_for('browse', sort='ranking', filter=current_filter, page=1) }}'"
+                class="{% if current_sort == 'ranking' %}active{% endif %}">Ranking</p>
             </div>
         </div>
         <img src="{{ url_for('static', filename='sort.ico') }}" alt="Sort" class="sort-icon">
     </div>
 
-
-
-  <!-- Game Grid -->
-<div class="game-grid">
-    {% for game in games %}
-    <div class="game-card">
-        <img src="{{ game.cover_url }}" alt="{{ game.name }}">
-        <p>{{ game.name }}</p>
+    <!-- Game Grid -->
+    <div class="game-grid">
+        {% for game in games %}
+        <div class="game-card">
+            <img src="{{ game.cover_url }}" alt="{{ game.name }}">
+            <p>{{ game.name }}</p>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 
+    <!-- Page Number Bar -->
+    <div class="pagination-bar">
+        {% if current_page > 1 %}
+        <a href="{{ url_for('browse', sort=current_sort, page=current_page - 1) }}" class="page-number">Previous</a>
+        {% endif %}
 
+        {% for i in page_range %}
+        <a href="{{ url_for('browse', sort=current_sort, page=i) }}"
+            class="page-number {% if i == current_page %}active{% endif %}">
+            {{ i }}
+        </a>
+        {% endfor %}
 
- <!-- Page Number Bar -->
-<div class="pagination-bar">
-    {% if current_page > 1 %}
-    <a href="{{ url_for('browse', sort=current_sort, page=current_page - 1) }}" class="page-number">Previous</a>
-    {% endif %}
+        {% if current_page + 3 < total_pages %}
+        <div class="page-number" id="page-input-container">
+            <span id="ellipsis">...</span>
+            <form id="page-input-form" action="{{ url_for('browse', sort=current_sort) }}" method="get"
+                style="display: none;">
+                <input type="hidden" name="sort" value="{{ current_sort }}">
+                <input type="number" name="page" min="1" max="{{ total_pages }}" placeholder="Page"
+                    class="page-input" onblur="toggleEllipsis(true)" onchange="this.form.submit()">
+            </form>
+        </div>
+        <a href="{{ url_for('browse', sort=current_sort, page=total_pages) }}" class="page-number">{{
+            total_pages }}</a>
+        {% endif %}
 
-    {% for i in page_range %}
-    <a href="{{ url_for('browse', sort=current_sort, page=i) }}"
-        class="page-number {% if i == current_page %}active{% endif %}">
-        {{ i }}
-    </a>
-    {% endfor %}
-
-    {% if current_page + 3 < total_pages %}
-    <div class="page-number" id="page-input-container">
-        <span id="ellipsis">...</span>
-        <form id="page-input-form" action="{{ url_for('browse', sort=current_sort) }}" method="get"
-            style="display: none;">
-            <input type="hidden" name="sort" value="{{ current_sort }}">
-            <input type="number" name="page" min="1" max="{{ total_pages }}" placeholder="Page"
-                class="page-input" onblur="toggleEllipsis(true)" onchange="this.form.submit()">
-        </form>
+        {% if current_page < total_pages %}
+        <a href="{{ url_for('browse', sort=current_sort, page=current_page + 1) }}" class="page-number">Next</a>
+        {% endif %}
     </div>
-    <a href="{{ url_for('browse', sort=current_sort, page=total_pages) }}" class="page-number">{{
-        total_pages }}</a>
-    {% endif %}
-
-    {% if current_page < total_pages %}
-    <a href="{{ url_for('browse', sort=current_sort, page=current_page + 1) }}" class="page-number">Next</a>
-    {% endif %}
-</div>
-
-
-
-
-
 </body>
 
 <script>
