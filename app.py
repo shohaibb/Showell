@@ -4,7 +4,6 @@ from flask import Flask, render_template, request
 import json
 from datetime import datetime
 
-
 # Add the current directory to the Python path
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
@@ -12,6 +11,7 @@ from api_clients.get_covers import get_all_covers
 from api_clients.get_games import get_all_games
 from api_clients.get_keywords import get_all_keywords
 from algorithms.query import get_rankings
+from algorithms.sorted_filtered import get_sorted_filtered
 
 app = Flask(__name__)
 
@@ -24,28 +24,6 @@ with open('api_clients/igdb_covers.json', 'r') as file:
 
 with open('api_clients/igdb_keywords.json', 'r') as file:
     keywords = json.load(file)
-
-# Assigning covers to games
-i = 0
-j = 0
-games = sorted(games, key=lambda x: x["id"])
-covers = [cover for cover in covers if "game" in cover]
-covers = sorted(covers, key=lambda x: x["game"])
-while i != len(games) and j != len(covers):
-    current_game = games[i]
-    current_cover = covers[j]
-    # Check that game id == cover's game id
-    if 'game' not in current_cover:
-        j += 1
-        continue
-    if current_game['id'] == current_cover['game']:
-        current_game['cover_url'] = f"https:{current_cover['url'].replace('t_thumb', 't_cover_big')}"
-        i += 1
-        j += 1
-    elif current_game['id'] > current_cover['game']:
-        j += 1
-    elif current_game['id'] < current_cover['game']:
-        i += 1
 
 # Define a genre mapping
 GENRE_MAP = {
@@ -74,63 +52,54 @@ GENRE_MAP = {
     36: "MOBA",
 }
 
-# Sorted lists:
-# Alphabetical
-GAME_NAME = [ game for game in games if "name" in game ]
-sorted_ALPHA = sorted(GAME_NAME, key=lambda x: x["name"])
-
-# Rating
-GAME_RATING = [ game for game in games if "total_rating" in game ]
-sorted_RATING = sorted(GAME_RATING, key=lambda x: x["total_rating"], reverse=True)
-
-# Release date
-GAME_RELEASE = [ game for game in games if "first_release_date" in game and game["first_release_date"] < 1731801600 ]
-sorted_RELEASE = sorted(GAME_RELEASE, key=lambda x: x["first_release_date"], reverse=True)
-
+# Assigning covers to games
+i = 0
+j = 0
+games = sorted(games, key=lambda x: x["id"])
+covers = [cover for cover in covers if "game" in cover]
+covers = sorted(covers, key=lambda x: x["game"])
+while i != len(games) and j != len(covers):
+    current_game = games[i]
+    current_cover = covers[j]
+    # Check that game id == cover's game id
+    if 'game' not in current_cover:
+        j += 1
+        continue
+    if current_game['id'] == current_cover['game']:
+        current_game['cover_url'] = f"https:{current_cover['url'].replace('t_thumb', 't_cover_big')}"
+        i += 1
+        j += 1
+    elif current_game['id'] > current_cover['game']:
+        j += 1
+    elif current_game['id'] < current_cover['game']:
+        i += 1
 
 # Filtered lists:
 FILTERED_GAMES = get_rankings(games, keywords)
 print("DONE FILTER")
-# China
-# GAME_RANKIDS_CHINA = FILTERED_GAMES[0]
-# GAME_IDS_CHINA = [ game[1] for game in GAME_RANKIDS_CHINA ]
-# GAMES_CHINA = [ game for game in games if game['id'] in GAME_IDS_CHINA ]
-# for game in GAMES_CHINA:
-#     if game['id'] in GAME_IDS_CHINA:
-#         game['rank'] = ''.join([game for game in GAME_RANKIDS_CHINA if game['id'] == game[1]])
 
-# print(GAMES_CHINA)
+SORTED_FILTERED = get_sorted_filtered(games, FILTERED_GAMES)
 
-# 0 = china
-# 1 = egypt
-# 2 = greece
-# 3 = japan
-# 4 = middleeast
-# 5 = norway
-# 6 = rome
-# 7 = lgbtq
-# 8 = neurodivergent
+# for i in range(9):
+#     current_rank_ids = sorted(FILTERED_GAMES[i], key=lambda x: x[1])
 
-for i in range(9):
-    current_rank_ids = sorted(FILTERED_GAMES[i], key=lambda x: x[1])
+#     j = 0
+#     k = 0
+#     while (j != len(current_rank_ids) and k != len(games)):
+#         if current_rank_ids[j][1] == games[k]['id']:
+#             games[k][f'rank_{i}'] = current_rank_ids[j][0]
+#             j += 1
+#             k += 1
 
-    j = 0
-    k = 0
-    while (j != len(current_rank_ids) and k != len(games)):
-        if current_rank_ids[j][1] == games[k]['id']:
-            games[k][f'rank_{i}'] = current_rank_ids[j][0]
-            j += 1
-            k += 1
-
-        elif current_rank_ids[j][1] > games[k]['id']:
-            k += 1
+#         elif current_rank_ids[j][1] > games[k]['id']:
+#             k += 1
         
-        elif current_rank_ids[j][1] < games[k]['id']:
-            j += 1
+#         elif current_rank_ids[j][1] < games[k]['id']:
+#             j += 1
 
-    print(f"DONE: {i}")
+#     print(f"DONE: {i}")
 
-print([game for game in games if game['id'] == 76882][0])
+# print([game for game in games if game['id'] == 76882][0])
 
 @app.route('/')
 def home():
@@ -153,11 +122,11 @@ def browse():
     # Sorting logic
     sort_option = request.args.get('sort', 'rating').lower()  # Default to alphabetical
     if sort_option == 'rating':
-        games_to_display = sorted_RATING
+        games_to_display = SORTED_FILTERED[1][9]
     elif sort_option == 'release':
-        games_to_display = sorted_RELEASE
+        games_to_display = SORTED_FILTERED[2][9]
     else:  # Default to alphabetical
-        games_to_display = sorted_ALPHA
+        games_to_display = SORTED_FILTERED[0][9]
 
     # Pagination setup
     games_per_page = 8
