@@ -1,5 +1,6 @@
 /* import fonts */
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Rum+Raisin&family=Solitreo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Sour+Gummy:wght@100..900&display=swap');
 
 /* Showell/page dimensions stuff */
 body {
@@ -18,8 +19,7 @@ body {
     overflow: hidden; 
 }
 
-
-/* GAME DETAILS*/
+/* GAME DETAILS */
 .game-detail-container {
     max-width: 800px;
     margin: 50px auto;
@@ -29,6 +29,7 @@ body {
     box-shadow: none; 
     background-color: transparent; 
     border-radius: 0; 
+    font-family: 'Sour Gummy', sans-serif; 
 }
 
 .game-detail-container img {
@@ -38,13 +39,13 @@ body {
 }
 
 .game-detail-container h1 {
-    font-family: 'Rum Raisin', sans-serif;
+    font-family: 'Rum Raisin', cursive; 
     margin-bottom: 20px;
     color: #ffffff;
 }
 
 .game-detail-container p {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Sour Gummy', sans-serif;
     margin: 10px 0;
 }
 
@@ -68,5 +69,5 @@ body {
     display: block; 
     margin: 0 auto; 
     border-radius: 10px; 
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Add this */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
