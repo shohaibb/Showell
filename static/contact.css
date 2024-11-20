@@ -8,7 +8,7 @@ body {
     align-items: center;
     flex-direction: column;
     height: 100vh;
-    background: linear-gradient(to bottom, #2D3A57, #303030); /* background */
+    background: linear-gradient(to bottom, #2D3A57, #303030); 
     margin: 0;
     font-family: 'Rum Raisin', sans-serif;
     color: #FFFFFF;

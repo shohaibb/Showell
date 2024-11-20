@@ -333,7 +333,6 @@ body {
 
 
 /* Page number bar */
-/* Pagination Bar */
 .pagination-bar {
     display: flex;
     justify-content: center;
@@ -362,7 +361,7 @@ body {
     background-color: #171e2e;
     color: #ffffff;
     cursor: default;
-    pointer-events: none; /* Prevent clicking on the active page */
+    pointer-events: none; 
     font-weight: bold;
 }
 
@@ -417,16 +416,16 @@ body {
 /* Game Grid */
 .game-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 2 columns */
-    grid-template-rows: repeat(2, auto); /* 5 rows */
-    gap: 60px; /* Space between cards */
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto); 
+    gap: 60px; 
     justify-content: center;
-    margin-top: 100px; /* Adds spacing above the grid */
-    direction: rtl; /* Flip direction to fix order */
+    margin-top: 100px; 
+    direction: rtl; 
 }
 
 .game-card {
-    direction: ltr; /* Reset direction for individual cards */
+    direction: ltr; 
     width: 170px;
     height: 230px;
     background-color: #ffffff21;

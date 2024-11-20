@@ -193,7 +193,6 @@ def game_detail(game_id):
         "game_modes": game_modes,
     }
 
-    # Add cover URL if available
     if 'cover_url' in game:
         game_data["cover_url"] = game['cover_url']
 
