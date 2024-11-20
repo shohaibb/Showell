@@ -176,17 +176,30 @@ def game_detail(game_id):
     game_mode_ids = game.get("game_modes", [])
     game_modes = [GAME_MODE_MAP.get(mode_id, f"Mode {mode_id}") for mode_id in game_mode_ids]
 
+    # Handle rating
+    rating = game.get("total_rating", None)
+    if rating is None or rating == 0.0:
+        rating_display = "Not Rated"
+    else:
+        rating_display = round(rating, 2)
+
+    # Prepare game data
     game_data = {
         "name": game.get("name"),
         "summary": game.get("summary", "No summary available."),
-        "rating": game.get("total_rating", "No rating available."),
+        "rating": rating_display,
         "release_date": release_date,
         "genres": genres,
         "game_modes": game_modes,
-        "cover_url": game['cover_url']
     }
 
+    # Add cover URL if available
+    if 'cover_url' in game:
+        game_data["cover_url"] = game['cover_url']
+
     return render_template('game_detail.html', game=game_data)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

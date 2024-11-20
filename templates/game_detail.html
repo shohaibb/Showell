@@ -6,19 +6,24 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='game_detail.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='controller.ico') }}" type="image/x-icon">
 </head>
-
-</head>
 <body>
     <div class="game-detail-container">
-        <img src="{{ game.cover_url }}" alt="{{ game.name }}" class="game-cover">
+        {% if 'cover_url' in game and game.cover_url %}
+            <img src="{{ game.cover_url }}" alt="{{ game.name }}" class="game-cover">
+        {% endif %}
         <h1>{{ game.name }}</h1>
         <p><strong>Summary:</strong> {{ game.summary }}</p>
-        <p><strong>Rating:</strong> {{ game.rating | round(2) }}/100</p>
+        <p><strong>Rating:</strong> 
+            {% if game.rating is not none and game.rating|float is not none %}
+                {{ game.rating|float|round(2) }}/100
+            {% else %}
+                Not Rated
+            {% endif %}
+        </p>
         <p><strong>Release Date:</strong> {{ game.release_date }}</p>
         <p><strong>Genres:</strong> {{ game.genres | join(', ') }}</p>
         <p><strong>Game Modes:</strong> {{ game.game_modes | join(', ') }}</p>
-        <a href="{{ url_for('home') }}" class="back-link">Back to Home</a>
+        <a href="{{ request.referrer or url_for('browse') }}" class="back-link">Go Back</a>
     </div>
-    
 </body>
 </html>
