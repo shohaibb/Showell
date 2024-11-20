@@ -25,33 +25,6 @@ with open('api_clients/igdb_covers.json', 'r') as file:
 with open('api_clients/igdb_keywords.json', 'r') as file:
     keywords = json.load(file)
 
-# Define a genre mapping
-GENRE_MAP = {
-    2: "Point-and-click",
-    4: "Fighting",
-    5: "Shooter",
-    7: "Music",
-    8: "Platform",
-    9: "Puzzle",
-    10: "Racing",
-    11: "Real Time Strategy (RTS)",
-    12: "Role-playing (RPG)",
-    13: "Simulator",
-    14: "Sport",
-    15: "Strategy",
-    16: "Turn-based Strategy (TBS)",
-    24: "Tactical",
-    25: "Hack and Slash/Beat 'em up",
-    26: "Quiz/Trivia",
-    30: "Pinball",
-    31: "Adventure",
-    32: "Indie",
-    33: "Arcade",
-    34: "Visual Novel",
-    35: "Card & Board Game",
-    36: "MOBA",
-}
-
 # Assigning covers to games
 i = 0
 j = 0
@@ -74,32 +47,9 @@ while i != len(games) and j != len(covers):
     elif current_game['id'] < current_cover['game']:
         i += 1
 
-# Filtered lists:
+# Filtered and sorted lists:
 FILTERED_GAMES = get_rankings(games, keywords)
-print("DONE FILTER")
-
 SORTED_FILTERED = get_sorted_filtered(games, FILTERED_GAMES)
-
-# for i in range(9):
-#     current_rank_ids = sorted(FILTERED_GAMES[i], key=lambda x: x[1])
-
-#     j = 0
-#     k = 0
-#     while (j != len(current_rank_ids) and k != len(games)):
-#         if current_rank_ids[j][1] == games[k]['id']:
-#             games[k][f'rank_{i}'] = current_rank_ids[j][0]
-#             j += 1
-#             k += 1
-
-#         elif current_rank_ids[j][1] > games[k]['id']:
-#             k += 1
-        
-#         elif current_rank_ids[j][1] < games[k]['id']:
-#             j += 1
-
-#     print(f"DONE: {i}")
-
-# print([game for game in games if game['id'] == 76882][0])
 
 @app.route('/')
 def home():
@@ -160,23 +110,39 @@ GAME_MODE_MAP = {
     4: "Split-screen",
 }
 
+# Define a genre mapping
+GENRE_MAP = {
+    2: "Point-and-click",
+    4: "Fighting",
+    5: "Shooter",
+    7: "Music",
+    8: "Platform",
+    9: "Puzzle",
+    10: "Racing",
+    11: "Real Time Strategy (RTS)",
+    12: "Role-playing (RPG)",
+    13: "Simulator",
+    14: "Sport",
+    15: "Strategy",
+    16: "Turn-based Strategy (TBS)",
+    24: "Tactical",
+    25: "Hack and Slash/Beat 'em up",
+    26: "Quiz/Trivia",
+    30: "Pinball",
+    31: "Adventure",
+    32: "Indie",
+    33: "Arcade",
+    34: "Visual Novel",
+    35: "Card & Board Game",
+    36: "MOBA",
+}
+
 @app.route('/game/<int:game_id>')
 def game_detail(game_id):
-    # Fetch game data
-    with open('api_clients/igdb_games.json', 'r') as file:
-        games = json.load(file)
-    
-    with open('api_clients/igdb_covers.json', 'r') as file:
-        covers = json.load(file)
-    
     # Find the game by ID
     game = next((g for g in games if g['id'] == game_id), None)
     if not game:
         return "Game not found", 404
-
-    # Get cover URL
-    cover = next((c for c in covers if 'game' in c and c['game'] == game_id), None)
-    game['cover_url'] = f"https:{cover['url'].replace('t_thumb', 't_cover_big')}" if cover else None
 
     # Convert the release date from Unix timestamp to a readable format
     release_date = game.get("first_release_date", None)
