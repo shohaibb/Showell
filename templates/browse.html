@@ -36,46 +36,47 @@
     <!-- Browse Games Title -->
     <h1 class="browse-title" id="browse-title">Browse Games</h1>
     <!-- Filter Icon Container -->
-    <div class="filter-icon-container">
-        <img src="{{ url_for('static', filename='filter.ico') }}" alt="Filter" class="filter-icon">
-        <div class="filter-bar" onclick="toggleDropdown()">
-            Filter By...
-            <span class="arrow">◀</span>
-            <div class="dropdown-menu" id="dropdown-menu">
-                <p onclick="window.location.href='{{ url_for('browse', sort=current_sort, filter=0, page=1) }}'"
-                class="{% if current_filter == 0 %}active{% endif %}">China</p>
-                <p onclick="window.location.href='{{ url_for('browse', sort=current_sort, filter=1, page=1) }}'"
-                class="{% if current_filter == 1 %}active{% endif %}">Egypt</p>
-                <p onclick="window.location.href='{{ url_for('browse', sort=current_sort, filter=2, page=1) }}'"
-                class="{% if current_filter == 2 %}active{% endif %}">Greece</p>
-                <p onclick="window.location.href='{{ url_for('browse', sort=current_sort, filter=3, page=1) }}'"
-                class="{% if current_filter == 3 %}active{% endif %}">Japan</p>
-                <p onclick="window.location.href='{{ url_for('browse', sort=current_sort, filter=4, page=1) }}'"
-                class="{% if current_filter == 4 %}active{% endif %}">Middle East</p>
-                <p onclick="window.location.href='{{ url_for('browse', sort=current_sort, filter=9, page=1) }}'"
-                class="{% if current_filter == 9 %}active{% endif %}">All Games</p>
-            </div>
+<div class="filter-icon-container">
+    <img src="{{ url_for('static', filename='filter.ico') }}" alt="Filter" class="filter-icon">
+    <div class="filter-bar" onclick="toggleDropdown()">
+        Filter By...
+        <span class="arrow">◀</span>
+        <div class="dropdown-menu" id="dropdown-menu">
+            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter=0, page=1) }}`"
+               class="{% if current_filter == 0 %}active{% endif %}">China</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter=1, page=1) }}`"
+               class="{% if current_filter == 1 %}active{% endif %}">Egypt</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter=2, page=1) }}`"
+               class="{% if current_filter == 2 %}active{% endif %}">Greece</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter=3, page=1) }}`"
+               class="{% if current_filter == 3 %}active{% endif %}">Japan</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter=4, page=1) }}`"
+               class="{% if current_filter == 4 %}active{% endif %}">Middle East</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort=current_sort, filter=9, page=1) }}`"
+               class="{% if current_filter == 9 %}active{% endif %}">All Games</p>
         </div>
     </div>
+</div>
 
-    <!-- Sort Icon Container -->
-    <div class="sort-icon-container">
-        <div class="sort-bar" onclick="toggleSortDropdown()">
-            Sort By...
-            <span class="sort-arrow">▶</span>
-            <div class="sort-dropdown-menu" id="sort-dropdown-menu">
-                <p onclick="window.location.href='{{ url_for('browse', sort='alpha', filter=current_filter, page=1) }}'"
-                class="{% if current_sort == 'alpha' %}active{% endif %}">A-Z</p>
-                <p onclick="window.location.href='{{ url_for('browse', sort='rating', filter=current_filter, page=1) }}'"
-                class="{% if current_sort == 'rating' %}active{% endif %}">Rating</p>
-                <p onclick="window.location.href='{{ url_for('browse', sort='release', filter=current_filter, page=1) }}'"
-                class="{% if current_sort == 'release' %}active{% endif %}">Newly Released</p>
-                <p onclick="window.location.href='{{ url_for('browse', sort='ranking', filter=current_filter, page=1) }}'"
-                class="{% if current_sort == 'ranking' %}active{% endif %}">Ranking</p>
-            </div>
+<!-- Sort Icon Container -->
+<div class="sort-icon-container">
+    <div class="sort-bar" onclick="toggleSortDropdown()">
+        Sort By...
+        <span class="sort-arrow">▶</span>
+        <div class="sort-dropdown-menu" id="sort-dropdown-menu">
+            <p onclick="window.location.href=`{{ url_for('browse', sort='alpha', filter=current_filter, page=1) }}`"
+               class="{% if current_sort == 'alpha' %}active{% endif %}">A-Z</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort='rating', filter=current_filter, page=1) }}`"
+               class="{% if current_sort == 'rating' %}active{% endif %}">Rating</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort='release', filter=current_filter, page=1) }}`"
+               class="{% if current_sort == 'release' %}active{% endif %}">Newly Released</p>
+            <p onclick="window.location.href=`{{ url_for('browse', sort='ranking', filter=current_filter, page=1) }}`"
+               class="{% if current_sort == 'ranking' %}active{% endif %}">Ranking</p>
         </div>
-        <img src="{{ url_for('static', filename='sort.ico') }}" alt="Sort" class="sort-icon">
     </div>
+    <img src="{{ url_for('static', filename='sort.ico') }}" alt="Sort" class="sort-icon">
+</div>
+
 
     <!-- Game Grid -->
     <div class="game-grid">
