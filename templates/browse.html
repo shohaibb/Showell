@@ -96,37 +96,39 @@
         {% endfor %}
     </div>
 
-    <!-- Page Number Bar -->
-    <div class="pagination-bar">
-        {% if current_page > 1 %}
-        <a href="{{ url_for('browse', sort=current_sort, page=current_page - 1) }}" class="page-number">Previous</a>
-        {% endif %}
+   <!-- Page Number Bar -->
+<div class="pagination-bar">
+    {% if current_page > 1 %}
+    <a href="{{ url_for('browse', sort=current_sort, filter=current_filter, page=current_page - 1) }}" class="page-number">Previous</a>
+    {% endif %}
 
-        {% for i in page_range %}
-        <a href="{{ url_for('browse', sort=current_sort, page=i) }}"
-            class="page-number {% if i == current_page %}active{% endif %}">
-            {{ i }}
-        </a>
-        {% endfor %}
+    {% for i in page_range %}
+    <a href="{{ url_for('browse', sort=current_sort, filter=current_filter, page=i) }}"
+        class="page-number {% if i == current_page %}active{% endif %}">
+        {{ i }}
+    </a>
+    {% endfor %}
 
-        {% if current_page + 3 < total_pages %}
-        <div class="page-number" id="page-input-container">
-            <span id="ellipsis">...</span>
-            <form id="page-input-form" action="{{ url_for('browse', sort=current_sort) }}" method="get"
-                style="display: none;">
-                <input type="hidden" name="sort" value="{{ current_sort }}">
-                <input type="number" name="page" min="1" max="{{ total_pages }}" placeholder="Page"
-                    class="page-input" onblur="toggleEllipsis(true)" onchange="this.form.submit()">
-            </form>
-        </div>
-        <a href="{{ url_for('browse', sort=current_sort, page=total_pages) }}" class="page-number">{{
-            total_pages }}</a>
-        {% endif %}
-
-        {% if current_page < total_pages %}
-        <a href="{{ url_for('browse', sort=current_sort, page=current_page + 1) }}" class="page-number">Next</a>
-        {% endif %}
+    {% if current_page + 3 < total_pages %}
+    <div class="page-number" id="page-input-container">
+        <span id="ellipsis">...</span>
+        <form id="page-input-form" action="{{ url_for('browse', sort=current_sort) }}" method="get"
+            style="display: none;">
+            <input type="hidden" name="sort" value="{{ current_sort }}">
+            <input type="hidden" name="filter" value="{{ current_filter }}">
+            <input type="number" name="page" min="1" max="{{ total_pages }}" placeholder="Page"
+                class="page-input" onblur="toggleEllipsis(true)" onchange="this.form.submit()">
+        </form>
     </div>
+    <a href="{{ url_for('browse', sort=current_sort, filter=current_filter, page=total_pages) }}" class="page-number">{{
+        total_pages }}</a>
+    {% endif %}
+
+    {% if current_page < total_pages %}
+    <a href="{{ url_for('browse', sort=current_sort, filter=current_filter, page=current_page + 1) }}" class="page-number">Next</a>
+    {% endif %}
+</div>
+
 </body>
 
 <script>
